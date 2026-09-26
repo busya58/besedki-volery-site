@@ -1,0 +1,195 @@
+<header class="site-header">
+
+    <div class="header-main">
+        <div class="container header-inner">
+
+            <a href="{% url 'home' %}" class="logo">
+                <span class="logo-mark">⌂</span>
+
+                <span class="logo-text">
+                    <strong>Уютный двор</strong>
+                    <small>Беседки и вольеры</small>
+                </span>
+            </a>
+
+            <button
+                class="mobile-menu-button"
+                type="button"
+                aria-label="Открыть меню"
+                aria-expanded="false"
+                aria-controls="main-navigation"
+            >
+                <span class="mobile-menu-icon">☰</span>
+            </button>
+
+            <nav
+                class="main-navigation"
+                id="main-navigation"
+                aria-label="Основное меню"
+            >
+                <a href="{% url 'home' %}">Главная</a>
+                <a href="{% url 'catalog' 'gazebo' %}">Беседки</a>
+                <a href="{% url 'catalog' 'aviary' %}">Вольеры</a>
+                <a href="{% url 'consultation_create' %}">Консультация</a>
+
+               {% if user.is_authenticated %}
+    <a href="{% url 'dashboard' %}">Личный кабинет</a>
+
+    <form
+        method="post"
+        action="{% url 'logout' %}"
+        class="logout-form"
+    >
+        {% csrf_token %}
+        <button type="submit" class="logout-button">
+            Выйти
+        </button>
+    </form>
+{% else %}
+    <a href="{% url 'login' %}">Войти</a>
+{% endif %}
+            </nav>
+
+            <a
+                href="{% url 'request_create' %}"
+                class="button button-small header-request-button"
+            >
+                Оставить заявку
+            </a>
+
+        </div>
+    </div>
+
+    <div class="header-subbar">
+        <div class="container subbar-inner">
+
+            <nav class="subbar-menu" aria-label="Разделы каталога">
+                <a href="{% url 'catalog' 'gazebo' %}">
+                   <span>
+    <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M3.5 10.5L12 3.5L20.5 10.5"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+
+        <path
+            d="M5.5 9.5V20H18.5V9.5"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linejoin="round"
+        />
+
+        <path
+            d="M9 20V14H15V20"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linejoin="round"
+        />
+
+        <path
+            d="M9 10.5H9.01M15 10.5H15.01"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+        />
+    </svg>
+</span>
+                    Каталог беседок
+                </a>
+
+                <a href="{% url 'catalog' 'aviary' %}">
+                    <span><svg
+    viewBox="0 0 24 24"
+    width="20"
+    height="20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <!-- крыша -->
+    <path
+        d="M4 7L6 4H18L20 7"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+    />
+
+    <!-- каркас -->
+    <path
+        d="M4 7V20H20V7"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linejoin="round"
+    />
+
+    <!-- решётка -->
+    <path
+        d="M7 8V20
+           M10 8V20
+           M14 8V20
+           M17 8V20"
+        stroke="currentColor"
+        stroke-width="1.2"
+        stroke-linecap="round"
+    />
+
+    <!-- горизонтальные перекладины -->
+    <path
+        d="M4 12H20
+           M4 16H20"
+        stroke="currentColor"
+        stroke-width="1.2"
+        stroke-linecap="round"
+    />
+
+    <!-- дверь -->
+    <rect
+        x="9"
+        y="13"
+        width="6"
+        height="7"
+        rx="0.8"
+        stroke="currentColor"
+        stroke-width="1.6"
+    />
+
+    <!-- ручка -->
+    <circle
+        cx="13"
+        cy="16.5"
+        r="0.7"
+        fill="currentColor"
+    />
+</svg>
+</span>
+                    Каталог вольеров
+                </a>
+            </nav>
+
+            <div class="header-contacts">
+
+                <!-- Замените ссылки WhatsApp, Telegram и MAX на свои -->
+
+
+                <a
+                    href="tel:+79250559888"
+                    class="header-contact header-phone"
+                >
+                    телефон +7 9250559888
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+</header>

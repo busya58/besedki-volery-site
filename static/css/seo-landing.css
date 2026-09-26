@@ -1,0 +1,611 @@
+/* =========================================================
+   SEO LANDING PAGES
+   БЕСЕДКИ И ВОЛЬЕРЫ
+   ========================================================= */
+
+.seo-page {
+    background: #080808;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.seo-hero {
+    position: relative;
+    overflow: hidden;
+
+    padding: 45px 0 100px;
+
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 212, 0, .08),
+            transparent 35%
+        ),
+        #080808;
+}
+
+
+.seo-breadcrumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 55px;
+
+    color: rgba(255,255,255,.42);
+
+    font-size: 12px;
+}
+
+
+.seo-breadcrumbs a {
+    color: rgba(255,255,255,.58);
+    text-decoration: none;
+}
+
+
+.seo-breadcrumbs a:hover {
+    color: #ffd400;
+}
+
+
+.seo-hero__grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.25fr)
+        minmax(280px, .55fr);
+
+    gap: 70px;
+
+    align-items: end;
+}
+
+
+.seo-hero__content {
+    max-width: 950px;
+}
+
+
+.seo-eyebrow {
+    margin-bottom: 22px;
+
+    color: #ffd400;
+
+    font-size: 11px;
+    font-weight: 900;
+
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+
+.seo-hero h1 {
+    max-width: 1050px;
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(
+        48px,
+        7vw,
+        104px
+    );
+
+    font-weight: 950;
+
+    line-height: .91;
+    letter-spacing: -.055em;
+}
+
+
+.seo-hero__intro {
+    max-width: 700px;
+
+    margin: 35px 0 0;
+
+    color: rgba(255,255,255,.62);
+
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.seo-hero__actions,
+.seo-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 38px;
+}
+
+
+.seo-button {
+    display: inline-flex;
+
+    min-height: 54px;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 25px;
+
+    border: 1px solid transparent;
+
+    font-size: 12px;
+    font-weight: 900;
+
+    letter-spacing: .04em;
+
+    text-decoration: none;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease;
+}
+
+
+.seo-button:hover {
+    transform: translateY(-2px);
+}
+
+
+.seo-button--primary {
+    background: #ffd400;
+    color: #080808;
+}
+
+
+.seo-button--primary:hover {
+    background: #ffe04a;
+}
+
+
+.seo-button--secondary {
+    border-color: rgba(255,255,255,.18);
+
+    background: transparent;
+
+    color: #ffffff;
+}
+
+
+.seo-button--secondary:hover {
+    border-color: rgba(255,212,0,.5);
+    color: #ffd400;
+}
+
+
+/* =========================================================
+   TEXT
+   ========================================================= */
+
+.seo-text {
+    max-width: 850px;
+}
+
+
+.seo-text p {
+    margin: 0 0 22px;
+
+    color: #aeb4b8;
+
+    font-size: 17px;
+    line-height: 1.85;
+}
+
+
+.seo-text p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   BENEFITS
+   ========================================================= */
+
+.seo-benefits {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 1px;
+
+    margin-top: 35px;
+
+    background: rgba(255,255,255,.09);
+}
+
+
+.seo-benefit {
+    min-height: 250px;
+
+    padding: 30px;
+
+    background: #111111;
+}
+
+
+.seo-benefit__number {
+    display: block;
+
+    margin-bottom: 50px;
+
+    color: #ffd400;
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+
+.seo-benefit h3 {
+    margin: 0 0 13px;
+
+    color: #ffffff;
+
+    font-size: 21px;
+    line-height: 1.15;
+}
+
+
+.seo-benefit p {
+    margin: 0;
+
+    color: #858b8f;
+
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+
+.seo-faq {
+    max-width: 950px;
+
+    border-top: 1px solid rgba(255,255,255,.1);
+}
+
+
+.seo-faq details {
+    border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
+
+.seo-faq summary {
+    position: relative;
+
+    padding: 25px 45px 25px 0;
+
+    color: #ffffff;
+
+    font-size: 17px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    list-style: none;
+}
+
+
+.seo-faq summary::-webkit-details-marker {
+    display: none;
+}
+
+
+.seo-faq summary::after {
+    content: "+";
+
+    position: absolute;
+
+    top: 50%;
+    right: 5px;
+
+    color: #ffd400;
+
+    font-size: 24px;
+    font-weight: 400;
+
+    transform: translateY(-50%);
+}
+
+
+.seo-faq details[open] summary::after {
+    content: "−";
+}
+
+
+.seo-faq details p {
+    max-width: 800px;
+
+    margin: 0;
+
+    padding: 0 0 25px;
+
+    color: #8e9498;
+
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   RELATED
+   ========================================================= */
+
+.seo-related {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 10px;
+}
+
+
+.seo-related__item {
+    display: flex;
+
+    min-height: 75px;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 18px 20px;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    background: #111111;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    transition:
+        border-color .2s ease,
+        transform .2s ease;
+}
+
+
+.seo-related__item:hover {
+    border-color: rgba(255,212,0,.45);
+
+    transform: translateY(-2px);
+}
+
+
+.seo-related__item span {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+.seo-related__item strong {
+    flex: 0 0 auto;
+
+    color: #ffd400;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.seo-cta {
+    padding: 90px 0;
+
+    background: #050505;
+}
+
+
+.seo-cta__box {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        auto;
+
+    gap: 50px;
+
+    align-items: center;
+
+    padding: 55px;
+
+    border: 1px solid rgba(255,255,255,.1);
+
+    background:
+        linear-gradient(
+            135deg,
+            #151515,
+            #0b0b0b
+        );
+}
+
+
+.seo-cta h2 {
+    max-width: 700px;
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(35px, 5vw, 70px);
+
+    font-weight: 950;
+
+    line-height: .95;
+    letter-spacing: -.045em;
+}
+
+
+.seo-cta p {
+    max-width: 620px;
+
+    margin: 22px 0 0;
+
+    color: #858b8f;
+
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+.seo-cta__actions {
+    margin-top: 0;
+
+    flex-direction: column;
+
+    min-width: 230px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .seo-hero__grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .seo-hero__meta {
+        max-width: 600px;
+    }
+
+    .seo-benefits {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .seo-related {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .seo-cta__box {
+        grid-template-columns: 1fr;
+    }
+
+    .seo-cta__actions {
+        flex-direction: row;
+    }
+
+}
+
+
+@media (max-width: 760px) {
+
+    .seo-hero {
+        padding: 30px 0 70px;
+    }
+
+    .seo-breadcrumbs {
+        margin-bottom: 35px;
+
+        font-size: 11px;
+    }
+
+    .seo-hero h1 {
+        font-size: clamp(
+            42px,
+            13vw,
+            70px
+        );
+    }
+
+    .seo-hero__intro {
+        margin-top: 25px;
+
+        font-size: 16px;
+    }
+
+    .seo-hero__actions {
+        flex-direction: column;
+    }
+
+    .seo-button {
+        width: 100%;
+    }
+
+    .seo-section {
+        padding: 55px 0;
+    }
+
+    .seo-section__head {
+        display: block;
+    }
+
+    .seo-section__lead {
+        margin-top: 18px;
+    }
+
+    .seo-benefits {
+        grid-template-columns: 1fr;
+    }
+
+    .seo-benefit {
+        min-height: auto;
+    }
+
+    .seo-benefit__number {
+        margin-bottom: 30px;
+    }
+
+    .seo-related {
+        grid-template-columns: 1fr;
+    }
+
+    .seo-cta {
+        padding: 60px 0;
+    }
+
+    .seo-cta__box {
+        padding: 30px 22px;
+    }
+
+    .seo-cta__actions {
+        flex-direction: column;
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .seo-hero h1 {
+        font-size: 42px;
+    }
+
+    .seo-hero__intro {
+        font-size: 15px;
+    }
+
+    .seo-benefit {
+        padding: 25px 20px;
+    }
+
+    .seo-faq summary {
+        font-size: 15px;
+    }
+
+}

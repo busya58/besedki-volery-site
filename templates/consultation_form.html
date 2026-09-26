@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Получить консультацию
+{% endblock %}
+
+{% block content %}
+
+<section class="form-section section">
+    <div class="container narrow-container">
+
+        <div class="consultation-box">
+            <div class="consultation-icon">☎</div>
+
+            <div class="section-heading center">
+                <div class="eyebrow">Бесплатно</div>
+                <h1>Получить консультацию</h1>
+                <p>
+                    Оставьте имя и телефон. Наш специалист перезвонит
+                    и поможет выбрать подходящую модель.
+                </p>
+            </div>
+
+            <form method="post" class="site-form">
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+
+                {% for field in form %}
+                    <div class="form-field">
+                        {{ field.label_tag }}
+                        {{ field }}
+
+                        {% for error in field.errors %}
+                            <div class="form-error">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="button button-wide">
+                    Получить консультацию
+                </button>
+
+                <p class="form-note">
+                    Мы не передаём ваши данные третьим лицам.
+                </p>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

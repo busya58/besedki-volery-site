@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+            Беседки и вольеры на заказ
+        {% endblock %}
+    </title>
+
+<meta
+    name="description"
+    content="{% if seo %}{{ seo.description }}{% else %}Изготовление беседок и вольеров на заказ. Доставка, монтаж и консультация.{% endif %}"
+>
+{% if canonical_path %}
+<link
+    rel="canonical"
+    href="{{ request.scheme }}://{{ request.get_host }}{{ canonical_path }}"
+>
+{% else %}
+<link
+    rel="canonical"
+    href="{{ request.build_absolute_uri }}"
+>
+{% endif %}
+<meta
+    name="keywords"
+    content="{% if seo %}{{ seo.keywords }}{% endif %}"
+>
+
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link
+    rel="stylesheet"
+    href="{% static 'css/seo-landing.css' %}"
+>
+</head>
+
+<body>
+
+    {% include "includes/header.html" %}
+
+    <main>
+        {% if messages %}
+            <div class="messages-wrapper">
+                {% for message in messages %}
+                    <div class="message message-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% include "includes/footer.html" %}
+
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

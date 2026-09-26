@@ -1,0 +1,487 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ seo.title }}
+{% endblock %}
+
+
+{% block content %}
+
+<article class="seo-page">
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="seo-hero">
+
+        <div class="container">
+
+            <div class="seo-breadcrumbs">
+
+                <a href="{% url 'home' %}">
+                    Главная
+                </a>
+
+                <span>/</span>
+
+                {% if seo_category == "gazebo" %}
+                    <a href="{% url 'catalog' 'gazebo' %}">
+                        Беседки
+                    </a>
+                {% else %}
+                    <a href="{% url 'catalog' 'aviary' %}">
+                        Вольеры
+                    </a>
+                {% endif %}
+
+                <span>/</span>
+
+                <span>
+                    {{ seo.h1 }}
+                </span>
+
+            </div>
+
+
+            <div class="seo-hero__grid">
+
+                <div class="seo-hero__content">
+
+                    <div class="seo-eyebrow">
+                        {{ seo.eyebrow }}
+                    </div>
+
+                    <h1>
+                        {{ seo.h1 }}
+                    </h1>
+
+                    <p class="seo-hero__intro">
+                        {{ seo.intro }}
+                    </p>
+
+
+                    <div class="seo-hero__actions">
+
+                        <a
+                            href="{% url 'request_create' %}"
+                            class="seo-button seo-button--primary"
+                        >
+                            Отправить заявку
+                        </a>
+
+                        <a
+                            href="{% url 'consultation_create' %}"
+                            class="seo-button seo-button--secondary"
+                        >
+                            Получить консультацию
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="seo-hero__meta">
+
+                    <div class="seo-hero__meta-title">
+                        Что можно подобрать
+                    </div>
+
+                    <ul class="seo-hero__meta-list">
+
+                        <li>
+                            Размер и конфигурацию
+                        </li>
+
+                        <li>
+                            Материалы и цвет
+                        </li>
+
+                        <li>
+                            Дополнительную комплектацию
+                        </li>
+
+                        <li>
+                            Доставку и монтаж
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         INTRO
+    ====================================================== -->
+
+    <section class="seo-section">
+
+        <div class="container">
+
+            <div class="seo-section__head">
+
+                <div>
+
+                    <div class="seo-section__eyebrow">
+                        {{ category_title }}
+                    </div>
+
+                    <h2>
+                        {{ seo.h1 }} на заказ
+                    </h2>
+
+                </div>
+
+                <p class="seo-section__lead">
+                    Поможем подобрать конструкцию под особенности
+                    участка, размеры и ваши пожелания.
+                </p>
+
+            </div>
+
+
+            <div class="seo-text">
+
+                <p>
+                    При выборе конструкции важно учитывать не только
+                    внешний вид, но и назначение, размеры участка,
+                    условия эксплуатации и необходимую комплектацию.
+                </p>
+
+                <p>
+                    Мы можем адаптировать проект под конкретный участок:
+                    изменить размеры, материалы, цвет, расположение
+                    элементов и дополнительные опции.
+                </p>
+
+                <p>
+                    Перед изготовлением можно обсудить основные
+                    параметры проекта и получить консультацию
+                    по подходящему варианту.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ADVANTAGES
+    ====================================================== -->
+
+    <section class="seo-section seo-section--dark">
+
+        <div class="container">
+
+            <div class="seo-section__head">
+
+                <div>
+
+                    <div class="seo-section__eyebrow">
+                        Преимущества
+                    </div>
+
+                    <h2>
+                        Проект под ваш участок
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="seo-benefits">
+
+                <div class="seo-benefit">
+
+                    <span class="seo-benefit__number">
+                        01
+                    </span>
+
+                    <h3>
+                        Индивидуальные размеры
+                    </h3>
+
+                    <p>
+                        Размер конструкции можно подобрать
+                        под площадь и особенности участка.
+                    </p>
+
+                </div>
+
+
+                <div class="seo-benefit">
+
+                    <span class="seo-benefit__number">
+                        02
+                    </span>
+
+                    <h3>
+                        Разные материалы
+                    </h3>
+
+                    <p>
+                        Доступны различные варианты материалов
+                        и сочетаний элементов.
+                    </p>
+
+                </div>
+
+
+                <div class="seo-benefit">
+
+                    <span class="seo-benefit__number">
+                        03
+                    </span>
+
+                    <h3>
+                        Комплектация
+                    </h3>
+
+                    <p>
+                        Можно предусмотреть дополнительные
+                        элементы в соответствии с задачей проекта.
+                    </p>
+
+                </div>
+
+
+                <div class="seo-benefit">
+
+                    <span class="seo-benefit__number">
+                        04
+                    </span>
+
+                    <h3>
+                        Доставка и монтаж
+                    </h3>
+
+                    <p>
+                        После изготовления организуется доставка
+                        и установка конструкции.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FAQ
+    ====================================================== -->
+
+    <section class="seo-section">
+
+        <div class="container">
+
+            <div class="seo-section__head">
+
+                <div>
+
+                    <div class="seo-section__eyebrow">
+                        Частые вопросы
+                    </div>
+
+                    <h2>
+                        Вопросы по проекту
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="seo-faq">
+
+                <details>
+                    <summary>
+                        Можно ли изменить размеры конструкции?
+                    </summary>
+
+                    <p>
+                        Да. Размеры можно обсудить при подготовке
+                        проекта с учётом особенностей участка.
+                    </p>
+                </details>
+
+
+                <details>
+                    <summary>
+                        Можно ли изменить комплектацию?
+                    </summary>
+
+                    <p>
+                        Да. Состав комплектации зависит от выбранной
+                        конструкции и пожеланий заказчика.
+                    </p>
+                </details>
+
+
+                <details>
+                    <summary>
+                        Выполняется ли доставка?
+                    </summary>
+
+                    <p>
+                        Доставка и условия монтажа согласовываются
+                        при оформлении заказа.
+                    </p>
+                </details>
+
+
+                <details>
+                    <summary>
+                        Можно ли получить консультацию перед заказом?
+                    </summary>
+
+                    <p>
+                        Да. Перед заказом можно уточнить размеры,
+                        материалы, комплектацию и другие параметры.
+                    </p>
+                </details>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         RELATED
+    ====================================================== -->
+
+    {% if related_pages %}
+
+    <section class="seo-section seo-section--dark">
+
+        <div class="container">
+
+            <div class="seo-section__head">
+
+                <div>
+
+                    <div class="seo-section__eyebrow">
+                        Также смотрите
+                    </div>
+
+                    <h2>
+                        Другие варианты
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="seo-related">
+
+                {% for related in related_pages %}
+
+                    {% if seo_category == "gazebo" %}
+
+                        <a
+                            href="{% url 'seo_gazebo' related.slug %}"
+                            class="seo-related__item"
+                        >
+
+                    {% else %}
+
+                        <a
+                            href="{% url 'seo_enclosure' related.slug %}"
+                            class="seo-related__item"
+                        >
+
+                    {% endif %}
+
+                            <span>
+                                {{ related.title }}
+                            </span>
+
+                            <strong>
+                                →
+                            </strong>
+
+                        </a>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         CTA
+    ====================================================== -->
+
+    <section class="seo-cta">
+
+        <div class="container">
+
+            <div class="seo-cta__box">
+
+                <div>
+
+                    <div class="seo-eyebrow">
+                        Бесплатная консультация
+                    </div>
+
+                    <h2>
+                        Обсудим ваш проект
+                    </h2>
+
+                    <p>
+                        Расскажите, какую конструкцию вы хотите
+                        получить, и мы поможем определить основные
+                        параметры проекта.
+                    </p>
+
+                </div>
+
+
+                <div class="seo-cta__actions">
+
+                    <a
+                        href="{% url 'request_create' %}"
+                        class="seo-button seo-button--primary"
+                    >
+                        Отправить заявку
+                    </a>
+
+                    <a
+                        href="{% url 'consultation_create' %}"
+                        class="seo-button seo-button--secondary"
+                    >
+                        Получить консультацию
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</article>
+
+{% endblock %}

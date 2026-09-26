@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Регистрация
+{% endblock %}
+
+{% block content %}
+
+<section class="form-section section">
+    <div class="container narrow-container">
+
+        <div class="section-heading center">
+            <div class="eyebrow">Личный кабинет</div>
+            <h1>Регистрация</h1>
+            <p>
+                Создайте аккаунт, чтобы отслеживать статус заявок.
+            </p>
+        </div>
+
+        <form method="post" class="site-form">
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+            {% for field in form %}
+                <div class="form-field">
+                    {{ field.label_tag }}
+                    {{ field }}
+
+                    {% if field.help_text %}
+                        <small>{{ field.help_text }}</small>
+                    {% endif %}
+
+                    {% for error in field.errors %}
+                        <div class="form-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="button button-wide">
+                Создать аккаунт
+            </button>
+
+            <p class="form-note">
+                Уже есть аккаунт?
+                <a href="{% url 'login' %}">Войти</a>
+            </p>
+        </form>
+
+    </div>
+</section>
+
+{% endblock %}

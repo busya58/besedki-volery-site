@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ product.title }} — беседки и вольеры
+{% endblock %}
+
+{% block content %}
+
+<section class="product-detail-section section">
+    <div class="container">
+
+        <div class="breadcrumbs">
+            <a href="{% url 'home' %}">Главная</a>
+            <span>/</span>
+            <a href="{% url 'catalog' product.product_type %}">
+                {{ product.get_product_type_display }}
+            </a>
+            <span>/</span>
+            <span>{{ product.title }}</span>
+        </div>
+
+        <div class="product-detail-grid">
+
+            <div class="product-detail-image">
+                {% if product.main_image %}
+                    <img
+                        src="{{ product.main_image.url }}"
+                        alt="{{ product.title }}"
+                    >
+                {% else %}
+                    <div class="large-image-placeholder">
+                        Нет изображения
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="product-detail-content">
+
+                <div class="product-type">
+                    {{ product.get_product_type_display }}
+                </div>
+
+                <h1>{{ product.title }}</h1>
+
+                <p class="product-detail-description">
+                    {{ product.description|linebreaks }}
+                </p>
+
+                <div class="detail-properties">
+                    {% if product.dimensions %}
+                        <div>
+                            <span>Размеры</span>
+                            <strong>{{ product.dimensions }}</strong>
+                        </div>
+                    {% endif %}
+
+                    {% if product.material %}
+                        <div>
+                            <span>Материал</span>
+                            <strong>{{ product.material }}</strong>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="detail-price">
+                    {% if product.old_price %}
+                        <del>{{ product.old_price|floatformat:0 }} ₽</del>
+                    {% endif %}
+
+                    <strong>{{ product.price|floatformat:0 }} ₽</strong>
+
+                    {% if product.discount_percent %}
+                        <span class="discount-badge">
+                            -{{ product.discount_percent }}%
+                        </span>
+                    {% endif %}
+                </div>
+
+                <div class="detail-actions">
+                    <a
+                        href="{% url 'request_create' %}?product={{ product.slug }}"
+                        class="button"
+                    >
+                        Заказать эту модель
+                    </a>
+
+                    <a
+                        href="{% url 'consultation_create' %}"
+                        class="button button-outline"
+                    >
+                        Задать вопрос
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% if related_products %}
+<section class="section section-light">
+    <div class="container">
+
+        <div class="section-heading">
+            <h2>Другие модели</h2>
+        </div>
+
+        <div class="products-grid">
+            {% for product in related_products %}
+                {% include "includes/product_card.html" %}
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}

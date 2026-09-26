@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Вход в личный кабинет
+{% endblock %}
+
+{% block content %}
+
+<section class="form-section section">
+    <div class="container narrow-container">
+
+        <div class="section-heading center">
+            <div class="eyebrow">Личный кабинет</div>
+            <h1>Войти</h1>
+        </div>
+
+        <form method="post" class="site-form">
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+            <div class="form-field">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+
+            <div class="form-field">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+
+            <button type="submit" class="button button-wide">
+                Войти
+            </button>
+
+            <p class="form-note">
+                Нет аккаунта?
+                <a href="{% url 'register' %}">Зарегистрироваться</a>
+            </p>
+        </form>
+
+    </div>
+</section>
+
+{% endblock %}

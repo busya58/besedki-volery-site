@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Заявка отправлена
+{% endblock %}
+
+{% block content %}
+
+<section class="success-section section">
+    <div class="container narrow-container">
+        <div class="success-card">
+
+            <div class="success-icon">✓</div>
+
+            <h1>Заявка отправлена</h1>
+
+            <p>
+                Спасибо за обращение. Мы получили вашу заявку
+                и скоро свяжемся с вами.
+            </p>
+
+            {% if user.is_authenticated %}
+                <p>
+                    Статус заявки можно посмотреть в личном кабинете.
+                </p>
+
+                <a href="{% url 'dashboard' %}" class="button">
+                    Перейти в личный кабинет
+                </a>
+            {% else %}
+                <a href="{% url 'home' %}" class="button">
+                    Вернуться на главную
+                </a>
+            {% endif %}
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

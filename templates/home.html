@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Беседки и вольеры на заказ
+{% endblock %}
+
+{% block content %}
+
+<section class="hero-section">
+    <div class="container hero-container">
+
+        <div class="hero-content">
+
+            <div class="eyebrow">
+                Изготовление под заказ
+            </div>
+
+            <h1>
+                Красивые беседки<br>
+                и надёжные вольеры
+            </h1>
+
+            <p>
+                Создаём функциональные конструкции для дома, дачи
+                и загородного участка. Поможем выбрать модель,
+                размер, цвет и материал.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a
+                    href="{% url 'request_create' %}"
+                    class="button hero-primary-button"
+                >
+                    Отправить заявку
+                </a>
+
+                <a
+                    href="{% url 'consultation_create' %}"
+                    class="button button-outline hero-outline-button"
+                >
+                    Получить консультацию
+                </a>
+
+            </div>
+
+            <div class="hero-benefits">
+
+                <div>
+                    <strong>10+</strong>
+                    <span>лет опыта</span>
+                </div>
+
+                <div>
+                    <strong>500+</strong>
+                    <span>готовых проектов</span>
+                </div>
+
+                <div>
+                    <strong>3 года</strong>
+                    <span>гарантии</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="advantages-section section">
+    <div class="container">
+
+        <div class="section-heading center">
+            <div class="eyebrow">Почему выбирают нас</div>
+            <h2>Всё продумано для вашего комфорта</h2>
+        </div>
+
+        <div class="advantages-grid">
+
+            <div class="advantage-card">
+                <div class="advantage-icon">✓</div>
+
+                <h3>Надёжные материалы</h3>
+
+                <p>
+                    Используем качественные материалы
+                    и проверенную фурнитуру.
+                </p>
+            </div>
+
+            <div class="advantage-card">
+                <div class="advantage-icon">⌂</div>
+
+                <h3>Изготовление под заказ</h3>
+
+                <p>
+                    Подберём размер, цвет, форму
+                    и комплектацию под ваш участок.
+                </p>
+            </div>
+
+            <div class="advantage-card">
+                <div class="advantage-icon">↗</div>
+
+                <h3>Доставка и монтаж</h3>
+
+                <p>
+                    Организуем доставку и профессиональную
+                    установку конструкции.
+                </p>
+            </div>
+
+            <div class="advantage-card">
+                <div class="advantage-icon">♡</div>
+
+                <h3>Внимание к деталям</h3>
+
+                <p>
+                    Заботимся о внешнем виде, удобстве
+                    и долговечности каждого проекта.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="catalog-preview-section section section-light">
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+                <div class="eyebrow">Наши предложения</div>
+                <h2>Беседки и вольеры</h2>
+            </div>
+
+            <div class="section-heading-links">
+                <a href="{% url 'catalog' 'gazebo' %}">
+                    Все беседки →
+                </a>
+
+                <a href="{% url 'catalog' 'aviary' %}">
+                    Все вольеры →
+                </a>
+            </div>
+
+        </div>
+
+        {% if featured_products %}
+
+            <div class="products-grid">
+                {% for product in featured_products %}
+                    {% include "includes/product_card.html" %}
+                {% endfor %}
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+                <h3>Каталог скоро будет наполнен</h3>
+
+                <p>
+                    Добавьте товары через административную панель сайта.
+                </p>
+            </div>
+
+        {% endif %}
+
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container cta-box">
+
+        <div>
+            <div class="eyebrow">Не знаете, что выбрать?</div>
+
+            <h2>Получите бесплатную консультацию</h2>
+
+            <p>
+                Оставьте номер телефона — специалист свяжется с вами
+                и ответит на все вопросы.
+            </p>
+        </div>
+
+        <a
+            href="{% url 'consultation_create' %}"
+            class="button button-light"
+        >
+            Получить консультацию
+        </a>
+
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Личный кабинет
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section section">
+    <div class="container">
+
+        <div class="dashboard-header">
+            <div>
+                <div class="eyebrow">Ваш профиль</div>
+                <h1>
+                    Здравствуйте,
+                    {{ user.first_name|default:user.username }}!
+                </h1>
+                <p>
+                    Здесь отображаются все ваши заявки и их текущие статусы.
+                </p>
+            </div>
+
+            <a href="{% url 'request_create' %}" class="button">
+                Новая заявка
+            </a>
+        </div>
+
+        <div class="dashboard-card">
+            <h2>Заявки на беседки и вольеры</h2>
+
+            {% if product_requests %}
+                <div class="requests-list">
+                    {% for item in product_requests %}
+                        <div class="request-item">
+
+                            <div class="request-number">
+                                Заявка №{{ item.pk }}
+                            </div>
+
+                            <div class="request-info">
+                                <strong>
+                                    {{ item.get_product_type_display }}
+                                </strong>
+
+                                {% if item.product %}
+                                    <span>{{ item.product.title }}</span>
+                                {% endif %}
+
+                                <small>
+                                    {{ item.created_at|date:"d.m.Y H:i" }}
+                                </small>
+                            </div>
+
+                            <div class="status status-{{ item.status }}">
+                                {{ item.get_status_display }}
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state compact">
+                    <p>У вас пока нет заявок на товары.</p>
+                    <a href="{% url 'request_create' %}" class="button button-small">
+                        Оставить заявку
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="dashboard-card">
+            <h2>Заявки на консультацию</h2>
+
+            {% if consultation_requests %}
+                <div class="requests-list">
+                    {% for item in consultation_requests %}
+                        <div class="request-item">
+
+                            <div class="request-number">
+                                Консультация №{{ item.pk }}
+                            </div>
+
+                            <div class="request-info">
+                                <strong>Консультация специалиста</strong>
+                                <small>
+                                    {{ item.created_at|date:"d.m.Y H:i" }}
+                                </small>
+                            </div>
+
+                            <div class="status status-{{ item.status }}">
+                                {{ item.get_status_display }}
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state compact">
+                    <p>У вас пока нет заявок на консультацию.</p>
+                    <a
+                        href="{% url 'consultation_create' %}"
+                        class="button button-small"
+                    >
+                        Получить консультацию
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

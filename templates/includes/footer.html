@@ -1,0 +1,36 @@
+<footer class="site-footer">
+    <div class="container footer-grid">
+
+        <div>
+            <a href="{% url 'home' %}" class="footer-logo">
+                Уютный двор
+            </a>
+
+            <p class="footer-description">
+                Изготавливаем красивые и надёжные беседки и вольеры
+                для частных домов, дач и загородных участков.
+            </p>
+        </div>
+
+        <div>
+            <h3>Разделы</h3>
+            <a href="{% url 'catalog' 'gazebo' %}">Беседки</a>
+            <a href="{% url 'catalog' 'aviary' %}">Вольеры</a>
+            <a href="{% url 'consultation_create' %}">Консультация</a>
+        </div>
+
+        <div>
+            <h3>Контакты</h3>
+            <a href="tel:+79990000000">+7 9250559888</a>
+            <a href="mailto:hh8754905@gmail.com">hh8754905@gmail.com</a>
+            <a href="https://wa.me/message/RRWJONIYXU7ZE1" target="_blank">WhatsApp</a>
+            <a href="https://t.me/besedkivolery" target="_blank">Telegram</a>
+        </div>
+
+    </div>
+
+    <div class="container footer-bottom">
+        <span>© 2010 Уютный двор</span>
+        <span>Беседки и вольеры на заказ</span>
+    </div>
+</footer>

@@ -1,0 +1,58 @@
+<article class="product-card">
+
+    <a href="{{ product.get_absolute_url }}" class="product-image-link">
+        {% if product.main_image %}
+            <img
+                src="{{ product.main_image.url }}"
+                alt="{{ product.title }}"
+                class="product-image"
+            >
+        {% else %}
+            <div class="product-image-placeholder">
+                <span>Нет изображения</span>
+            </div>
+        {% endif %}
+    </a>
+
+    <div class="product-card-body">
+
+        <div class="product-type">
+            {{ product.get_product_type_display }}
+        </div>
+
+        <h3>
+            <a href="{{ product.get_absolute_url }}">
+                {{ product.title }}
+            </a>
+        </h3>
+
+        <p class="product-description">
+            {{ product.short_description }}
+        </p>
+
+        {% if product.dimensions %}
+            <div class="product-property">
+                <span>Размер:</span>
+                <strong>{{ product.dimensions }}</strong>
+            </div>
+        {% endif %}
+
+        <div class="product-card-footer">
+            <div class="price-block">
+                {% if product.old_price %}
+                    <del>{{ product.old_price|floatformat:0 }} ₽</del>
+                {% endif %}
+
+                <strong>{{ product.price|floatformat:0 }} ₽</strong>
+            </div>
+
+            <a
+                href="{% url 'request_create' %}?product={{ product.slug }}"
+                class="button button-small"
+            >
+                Заказать
+            </a>
+        </div>
+
+    </div>
+</article>
