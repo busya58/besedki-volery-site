@@ -1,6 +1,7 @@
 ﻿from pathlib import Path
 import os
 
+import dj_database_url
 from dotenv import load_dotenv
 
 
@@ -14,7 +15,7 @@ load_dotenv(BASE_DIR / ".env")
 
 
 # =========================================================
-# SECURITY
+# ENVIRONMENT
 # =========================================================
 
 SECRET_KEY = os.getenv(
@@ -22,7 +23,10 @@ SECRET_KEY = os.getenv(
     "django-insecure-change-this-key-in-production",
 )
 
-DEBUG = os.getenv("DEBUG", "True").lower() == "true"
+DEBUG = os.getenv(
+    "DEBUG",
+    "True",
+).lower() in {"true", "1", "yes", "on"}
 
 
 def env_list(name, default=""):
@@ -33,6 +37,10 @@ def env_list(name, default=""):
     ]
 
 
+# =========================================================
+# HOSTS
+# =========================================================
+
 ALLOWED_HOSTS = env_list(
     "ALLOWED_HOSTS",
     "127.0.0.1,localhost",
@@ -41,6 +49,24 @@ ALLOWED_HOSTS = env_list(
 CSRF_TRUSTED_ORIGINS = env_list(
     "CSRF_TRUSTED_ORIGINS",
 )
+
+
+# Render автоматически передаёт имя своего хоста.
+RENDER_EXTERNAL_HOSTNAME = os.getenv(
+    "RENDER_EXTERNAL_HOSTNAME",
+)
+
+if (
+    RENDER_EXTERNAL_HOSTNAME
+    and RENDER_EXTERNAL_HOSTNAME not in ALLOWED_HOSTS
+):
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+if RENDER_EXTERNAL_HOSTNAME:
+    render_origin = f"https://{RENDER_EXTERNAL_HOSTNAME}"
+
+    if render_origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(render_origin)
 
 
 # =========================================================
@@ -55,6 +81,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
+
     "catalog",
 ]
 
@@ -65,6 +92,11 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+
+    # WhiteNoise раздаёт CSS, JS, изображения и другие static-файлы
+    # непосредственно через Django/Render.
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -90,7 +122,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [
+            BASE_DIR / "templates",
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -106,13 +140,31 @@ TEMPLATES = [
 # =========================================================
 # DATABASE
 # =========================================================
+#
+# Локально:
+#     SQLite -> db.sqlite3
+#
+# Render:
+#     DATABASE_URL -> PostgreSQL
+#
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
+    DATABASES = {
+        "default": dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 
 # =========================================================
@@ -155,7 +207,7 @@ USE_TZ = True
 
 
 # =========================================================
-# STATIC
+# STATIC FILES
 # =========================================================
 
 STATIC_URL = "/static/"
@@ -165,6 +217,21 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+# Django 5.2+
+# WhiteNoise собирает и обслуживает production static-файлы.
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": (
+            "whitenoise.storage."
+            "CompressedManifestStaticFilesStorage"
+        ),
+    },
+}
 
 
 # =========================================================
@@ -177,14 +244,14 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 
 # =========================================================
-# DJANGO DEFAULTS
+# DEFAULT MODEL ID
 # =========================================================
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # =========================================================
-# AUTHENTICATION
+# AUTH
 # =========================================================
 
 LOGIN_URL = "/account/login/"
@@ -195,7 +262,7 @@ LOGOUT_REDIRECT_URL = "/"
 
 
 # =========================================================
-# CONTACTS
+# CONTACT INFORMATION
 # =========================================================
 
 CONTACT_PHONE = os.getenv(
@@ -230,7 +297,8 @@ TELEGRAM_BOT_TOKEN = os.getenv(
 
 TELEGRAM_CHAT_ID = os.getenv(
     "TELEGRAM_CHAT_ID",
-    "")
+    "",
+)
 
 
 # =========================================================
@@ -239,28 +307,25 @@ TELEGRAM_CHAT_ID = os.getenv(
 
 if not DEBUG:
 
-    # HTTPS
     SECURE_SSL_REDIRECT = True
 
-    # Secure cookies
     SESSION_COOKIE_SECURE = True
+
     CSRF_COOKIE_SECURE = True
 
-    # HSTS
     SECURE_HSTS_SECONDS = 31536000
+
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
     SECURE_HSTS_PRELOAD = True
 
-    # Browser security
     SECURE_CONTENT_TYPE_NOSNIFF = True
+
     SECURE_REFERRER_POLICY = "same-origin"
 
-    # Clickjacking protection
     X_FRAME_OPTIONS = "DENY"
 
-    # Proxy / HTTPS
     SECURE_PROXY_SSL_HEADER = (
         "HTTP_X_FORWARDED_PROTO",
         "https",
     )
-
