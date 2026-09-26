@@ -1,14 +1,99 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% load static %}
+
 
 {% block title %}
     {{ seo.title }}
 {% endblock %}
 
 
+{% block og_type %}
+    article
+{% endblock %}
+
+
+{% block extra_head %}
+
+
+    <!-- =====================================================
+         WEBPAGE SCHEMA
+    ====================================================== -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "{{ seo.title|escapejs }}",
+        "headline": "{{ seo.h1|escapejs }}",
+        "description": "{{ seo.description|escapejs }}",
+        "url": "{{ request.scheme }}://{{ request.get_host }}{{ canonical_path }}",
+        "inLanguage": "ru-RU"
+    }
+    </script>
+
+
+    <!-- =====================================================
+         BREADCRUMBS SCHEMA
+    ====================================================== -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Главная",
+                "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'home' %}"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "{{ category_title|escapejs }}",
+                "item": "{{ request.scheme }}://{{ request.get_host }}{% if seo_category == 'gazebo' %}{% url 'catalog' 'gazebo' %}{% else %}{% url 'catalog' 'aviary' %}{% endif %}"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "{{ seo.h1|escapejs }}",
+                "item": "{{ request.scheme }}://{{ request.get_host }}{{ canonical_path }}"
+            }
+        ]
+    }
+    </script>
+
+
+    <!-- =====================================================
+         FAQ SCHEMA
+    ====================================================== -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {% for question, answer in seo_content.faq %}
+            {
+                "@type": "Question",
+                "name": "{{ question|escapejs }}",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "{{ answer|escapejs }}"
+                }
+            }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ]
+    }
+    </script>
+
+{% endblock %}
+
+
 {% block content %}
 
 <article class="seo-page">
+
 
     <!-- =====================================================
          HERO
@@ -18,34 +103,44 @@
 
         <div class="container">
 
-            <div class="seo-breadcrumbs">
+            <nav
+                class="seo-breadcrumbs"
+                aria-label="Хлебные крошки"
+            >
 
                 <a href="{% url 'home' %}">
                     Главная
                 </a>
 
-                <span>/</span>
+                <span aria-hidden="true">/</span>
 
                 {% if seo_category == "gazebo" %}
+
                     <a href="{% url 'catalog' 'gazebo' %}">
                         Беседки
                     </a>
+
                 {% else %}
+
                     <a href="{% url 'catalog' 'aviary' %}">
                         Вольеры
                     </a>
+
                 {% endif %}
 
-                <span>/</span>
+                <span aria-hidden="true">/</span>
 
                 <span>
                     {{ seo.h1 }}
                 </span>
 
-            </div>
+            </nav>
 
 
             <div class="seo-hero__grid">
+
+
+                <!-- HERO CONTENT -->
 
                 <div class="seo-hero__content">
 
@@ -53,9 +148,11 @@
                         {{ seo.eyebrow }}
                     </div>
 
+
                     <h1>
                         {{ seo.h1 }}
                     </h1>
+
 
                     <p class="seo-hero__intro">
                         {{ seo.intro }}
@@ -83,29 +180,24 @@
                 </div>
 
 
+                <!-- HERO META -->
+
                 <div class="seo-hero__meta">
 
                     <div class="seo-hero__meta-title">
                         Что можно подобрать
                     </div>
 
+
                     <ul class="seo-hero__meta-list">
 
-                        <li>
-                            Размер и конфигурацию
-                        </li>
+                        {% for feature in seo_content.features|slice:":4" %}
 
-                        <li>
-                            Материалы и цвет
-                        </li>
+                            <li>
+                                {{ feature }}
+                            </li>
 
-                        <li>
-                            Дополнительную комплектацию
-                        </li>
-
-                        <li>
-                            Доставку и монтаж
-                        </li>
+                        {% endfor %}
 
                     </ul>
 
@@ -118,13 +210,15 @@
     </section>
 
 
+
     <!-- =====================================================
-         INTRO
+         UNIQUE SEO CONTENT
     ====================================================== -->
 
     <section class="seo-section">
 
         <div class="container">
+
 
             <div class="seo-section__head">
 
@@ -134,15 +228,16 @@
                         {{ category_title }}
                     </div>
 
+
                     <h2>
-                        {{ seo.h1 }} на заказ
+                        {{ seo_content.section_title }}
                     </h2>
 
                 </div>
 
+
                 <p class="seo-section__lead">
-                    Поможем подобрать конструкцию под особенности
-                    участка, размеры и ваши пожелания.
+                    {{ seo.description }}
                 </p>
 
             </div>
@@ -151,21 +246,21 @@
             <div class="seo-text">
 
                 <p>
-                    При выборе конструкции важно учитывать не только
-                    внешний вид, но и назначение, размеры участка,
-                    условия эксплуатации и необходимую комплектацию.
+                    {{ seo_content.text }}
                 </p>
 
-                <p>
-                    Мы можем адаптировать проект под конкретный участок:
-                    изменить размеры, материалы, цвет, расположение
-                    элементов и дополнительные опции.
-                </p>
 
                 <p>
-                    Перед изготовлением можно обсудить основные
-                    параметры проекта и получить консультацию
-                    по подходящему варианту.
+                    Конструкция подбирается с учётом особенностей участка,
+                    размеров, назначения и предполагаемых условий эксплуатации.
+                    Основные параметры можно определить до начала изготовления.
+                </p>
+
+
+                <p>
+                    При необходимости можно обсудить размеры, материалы,
+                    комплектацию, расположение элементов, доставку и монтаж.
+                    Это позволяет адаптировать решение под конкретный проект.
                 </p>
 
             </div>
@@ -175,24 +270,27 @@
     </section>
 
 
+
     <!-- =====================================================
-         ADVANTAGES
+         FEATURES
     ====================================================== -->
 
     <section class="seo-section seo-section--dark">
 
         <div class="container">
 
+
             <div class="seo-section__head">
 
                 <div>
 
                     <div class="seo-section__eyebrow">
-                        Преимущества
+                        Основные особенности
                     </div>
 
+
                     <h2>
-                        Проект под ваш участок
+                        {{ seo_content.section_title }}
                     </h2>
 
                 </div>
@@ -202,82 +300,98 @@
 
             <div class="seo-benefits">
 
-                <div class="seo-benefit">
+                {% for feature in seo_content.features %}
 
-                    <span class="seo-benefit__number">
-                        01
-                    </span>
+                    <div class="seo-benefit">
 
-                    <h3>
-                        Индивидуальные размеры
-                    </h3>
-
-                    <p>
-                        Размер конструкции можно подобрать
-                        под площадь и особенности участка.
-                    </p>
-
-                </div>
+                        <span class="seo-benefit__number">
+                            {{ forloop.counter|stringformat:"02d" }}
+                        </span>
 
 
-                <div class="seo-benefit">
-
-                    <span class="seo-benefit__number">
-                        02
-                    </span>
-
-                    <h3>
-                        Разные материалы
-                    </h3>
-
-                    <p>
-                        Доступны различные варианты материалов
-                        и сочетаний элементов.
-                    </p>
-
-                </div>
+                        <h3>
+                            {{ feature }}
+                        </h3>
 
 
-                <div class="seo-benefit">
+                        <p>
+                            Параметр можно учитывать при выборе
+                            конфигурации и подготовке проекта.
+                        </p>
 
-                    <span class="seo-benefit__number">
-                        03
-                    </span>
+                    </div>
 
-                    <h3>
-                        Комплектация
-                    </h3>
-
-                    <p>
-                        Можно предусмотреть дополнительные
-                        элементы в соответствии с задачей проекта.
-                    </p>
-
-                </div>
-
-
-                <div class="seo-benefit">
-
-                    <span class="seo-benefit__number">
-                        04
-                    </span>
-
-                    <h3>
-                        Доставка и монтаж
-                    </h3>
-
-                    <p>
-                        После изготовления организуется доставка
-                        и установка конструкции.
-                    </p>
-
-                </div>
+                {% endfor %}
 
             </div>
 
         </div>
 
     </section>
+
+
+
+    <!-- =====================================================
+         HOW TO CHOOSE
+    ====================================================== -->
+
+    <section class="seo-section">
+
+        <div class="container">
+
+
+            <div class="seo-section__head">
+
+                <div>
+
+                    <div class="seo-section__eyebrow">
+                        Подбор конструкции
+                    </div>
+
+
+                    <h2>
+                        Что важно учесть перед заказом
+                    </h2>
+
+                </div>
+
+
+                <p class="seo-section__lead">
+                    Основные параметры лучше определить до изготовления,
+                    чтобы конструкция соответствовала участку и задачам.
+                </p>
+
+            </div>
+
+
+            <div class="seo-text">
+
+                <p>
+                    В первую очередь учитываются размеры свободной площади
+                    и место предполагаемой установки. Также важно определить,
+                    сколько людей или для каких условий предназначена конструкция.
+                </p>
+
+
+                <p>
+                    Следующий этап — выбор материала, формы, типа конструкции
+                    и дополнительной комплектации. Эти параметры могут влиять
+                    на внешний вид, функциональность и стоимость проекта.
+                </p>
+
+
+                <p>
+                    Если требуется индивидуальное решение, параметры можно
+                    согласовать до изготовления и адаптировать под конкретный
+                    участок.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
 
 
     <!-- =====================================================
@@ -288,6 +402,7 @@
 
         <div class="container">
 
+
             <div class="seo-section__head">
 
                 <div>
@@ -295,6 +410,7 @@
                     <div class="seo-section__eyebrow">
                         Частые вопросы
                     </div>
+
 
                     <h2>
                         Вопросы по проекту
@@ -307,52 +423,22 @@
 
             <div class="seo-faq">
 
-                <details>
-                    <summary>
-                        Можно ли изменить размеры конструкции?
-                    </summary>
+                {% for question, answer in seo_content.faq %}
 
-                    <p>
-                        Да. Размеры можно обсудить при подготовке
-                        проекта с учётом особенностей участка.
-                    </p>
-                </details>
+                    <details>
+
+                        <summary>
+                            {{ question }}
+                        </summary>
 
 
-                <details>
-                    <summary>
-                        Можно ли изменить комплектацию?
-                    </summary>
+                        <p>
+                            {{ answer }}
+                        </p>
 
-                    <p>
-                        Да. Состав комплектации зависит от выбранной
-                        конструкции и пожеланий заказчика.
-                    </p>
-                </details>
+                    </details>
 
-
-                <details>
-                    <summary>
-                        Выполняется ли доставка?
-                    </summary>
-
-                    <p>
-                        Доставка и условия монтажа согласовываются
-                        при оформлении заказа.
-                    </p>
-                </details>
-
-
-                <details>
-                    <summary>
-                        Можно ли получить консультацию перед заказом?
-                    </summary>
-
-                    <p>
-                        Да. Перед заказом можно уточнить размеры,
-                        материалы, комплектацию и другие параметры.
-                    </p>
-                </details>
+                {% endfor %}
 
             </div>
 
@@ -361,8 +447,9 @@
     </section>
 
 
+
     <!-- =====================================================
-         RELATED
+         RELATED PAGES
     ====================================================== -->
 
     {% if related_pages %}
@@ -371,6 +458,7 @@
 
         <div class="container">
 
+
             <div class="seo-section__head">
 
                 <div>
@@ -378,6 +466,7 @@
                     <div class="seo-section__eyebrow">
                         Также смотрите
                     </div>
+
 
                     <h2>
                         Другие варианты
@@ -412,7 +501,7 @@
                                 {{ related.title }}
                             </span>
 
-                            <strong>
+                            <strong aria-hidden="true">
                                 →
                             </strong>
 
@@ -429,6 +518,7 @@
     {% endif %}
 
 
+
     <!-- =====================================================
          CTA
     ====================================================== -->
@@ -439,15 +529,18 @@
 
             <div class="seo-cta__box">
 
+
                 <div>
 
                     <div class="seo-eyebrow">
                         Бесплатная консультация
                     </div>
 
+
                     <h2>
                         Обсудим ваш проект
                     </h2>
+
 
                     <p>
                         Расскажите, какую конструкцию вы хотите
@@ -467,6 +560,7 @@
                         Отправить заявку
                     </a>
 
+
                     <a
                         href="{% url 'consultation_create' %}"
                         class="seo-button seo-button--secondary"
@@ -481,6 +575,7 @@
         </div>
 
     </section>
+
 
 </article>
 

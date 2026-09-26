@@ -4,7 +4,7 @@
    ========================================================= */
 
 .seo-page {
-    background: #080808;
+    background: #035129;
     color: #ffffff;
 }
 
@@ -25,7 +25,7 @@
             rgba(255, 212, 0, .08),
             transparent 35%
         ),
-        #080808;
+        #035129;
 }
 
 
@@ -165,7 +165,7 @@
 
 .seo-button--primary {
     background: #ffd400;
-    color: #080808;
+    color: #035129;
 }
 
 
@@ -236,7 +236,7 @@
 
     padding: 30px;
 
-    background: #111111;
+    background: #03512990;
 }
 
 
@@ -265,7 +265,7 @@
 .seo-benefit p {
     margin: 0;
 
-    color: #858b8f;
+    color: #ffffff;
 
     font-size: 14px;
     line-height: 1.65;
@@ -373,7 +373,7 @@
 
     border: 1px solid rgba(255,255,255,.08);
 
-    background: #111111;
+    background: #035129;
 
     color: #ffffff;
 
@@ -414,7 +414,7 @@
 .seo-cta {
     padding: 90px 0;
 
-    background: #050505;
+    background: #035129;
 }
 
 
@@ -433,12 +433,8 @@
 
     border: 1px solid rgba(255,255,255,.1);
 
-    background:
-        linear-gradient(
-            135deg,
-            #151515,
-            #0b0b0b
-        );
+    background:#0351296f;
+        
 }
 
 
@@ -463,7 +459,7 @@
 
     margin: 22px 0 0;
 
-    color: #858b8f;
+    color: #ffffff;
 
     font-size: 16px;
     line-height: 1.7;

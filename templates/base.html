@@ -1,10 +1,26 @@
-{% load static %}
+﻿{% load static %}
 
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#080808"
+    >
+
+
+    <!-- =====================================================
+         TITLE
+    ====================================================== -->
 
     <title>
         {% block title %}
@@ -12,55 +28,243 @@
         {% endblock %}
     </title>
 
-<meta
-    name="description"
-    content="{% if seo %}{{ seo.description }}{% else %}Изготовление беседок и вольеров на заказ. Доставка, монтаж и консультация.{% endif %}"
->
-{% if canonical_path %}
-<link
-    rel="canonical"
-    href="{{ request.scheme }}://{{ request.get_host }}{{ canonical_path }}"
->
-{% else %}
-<link
-    rel="canonical"
-    href="{{ request.build_absolute_uri }}"
->
-{% endif %}
-<meta
-    name="keywords"
-    content="{% if seo %}{{ seo.keywords }}{% endif %}"
->
 
-    <link rel="icon" href="{% static 'images/favicon.ico' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- =====================================================
+         DESCRIPTION
+    ====================================================== -->
+
+    <meta
+        name="description"
+        content="{% if seo %}{{ seo.description }}{% else %}Изготовление беседок и вольеров на заказ. Доставка, монтаж и консультация.{% endif %}"
+    >
+
+
+    <!-- =====================================================
+         ROBOTS
+    ====================================================== -->
+
+    <meta
+        name="robots"
+        content="{% block robots %}index, follow, max-image-preview:large{% endblock %}"
+    >
+
+    <meta
+        name="googlebot"
+        content="index, follow"
+    >
+
+    <meta
+        name="yandex"
+        content="index, follow"
+    >
+
+
+    <!-- =====================================================
+         CANONICAL
+    ====================================================== -->
+
+    {% if canonical_path %}
+
+        <link
+            rel="canonical"
+            href="{{ request.scheme }}://{{ request.get_host }}{{ canonical_path }}"
+        >
+
+    {% else %}
+
+        <link
+            rel="canonical"
+            href="{{ request.build_absolute_uri }}"
+        >
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         KEYWORDS
+    ====================================================== -->
+
+    {% if seo.keywords %}
+
+        <meta
+            name="keywords"
+            content="{{ seo.keywords }}"
+        >
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         OPEN GRAPH
+    ====================================================== -->
+
+    <meta
+        property="og:locale"
+        content="ru_RU"
+    >
+
+    <meta
+        property="og:type"
+        content="{% block og_type %}website{% endblock %}"
+    >
+
+    <meta
+        property="og:title"
+        content="{% if seo %}{{ seo.title }}{% else %}Беседки и вольеры на заказ{% endif %}"
+    >
+
+    <meta
+        property="og:description"
+        content="{% if seo %}{{ seo.description }}{% else %}Изготовление беседок и вольеров на заказ. Доставка, монтаж и консультация.{% endif %}"
+    >
+
+    <meta
+        property="og:url"
+        content="{% if canonical_path %}{{ request.scheme }}://{{ request.get_host }}{{ canonical_path }}{% else %}{{ request.build_absolute_uri }}{% endif %}"
+    >
+
+    <meta
+        property="og:site_name"
+        content="Беседки и вольеры"
+    >
+
+    {% block og_image %}
+
+        <meta
+            property="og:image"
+            content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/og-image.jpg' %}"
+        >
+
+        <meta
+            property="og:image:alt"
+            content="Беседки и вольеры на заказ"
+        >
+
+    {% endblock %}
+
+
+    <!-- =====================================================
+         TWITTER / SOCIAL
+    ====================================================== -->
+
+    <meta
+        name="twitter:card"
+        content="summary_large_image"
+    >
+
+    <meta
+        name="twitter:title"
+        content="{% if seo %}{{ seo.title }}{% else %}Беседки и вольеры на заказ{% endif %}"
+    >
+
+    <meta
+        name="twitter:description"
+        content="{% if seo %}{{ seo.description }}{% else %}Изготовление беседок и вольеров на заказ. Доставка, монтаж и консультация.{% endif %}"
+    >
+
+    <meta
+        name="twitter:image"
+        content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/og-image.jpg' %}"
+    >
+
+
+    <!-- =====================================================
+         FAVICON
+    ====================================================== -->
+
     <link
-    rel="stylesheet"
-    href="{% static 'css/seo-landing.css' %}"
->
+        rel="icon"
+        type="image/x-icon"
+        href="{% static 'images/favicon.ico' %}"
+    >
+
+    <link
+        rel="shortcut icon"
+        type="image/x-icon"
+        href="{% static 'images/favicon.ico' %}"
+    >
+
+
+    <!-- =====================================================
+         STYLES
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/seo-landing.css' %}"
+    >
+
+
+    <!-- =====================================================
+         ADDITIONAL HEAD CONTENT
+    ====================================================== -->
+
+    {% block extra_head %}
+    {% endblock %}
+
 </head>
+
 
 <body>
 
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
     {% include "includes/header.html" %}
 
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
     <main>
+
         {% if messages %}
+
             <div class="messages-wrapper">
+
                 {% for message in messages %}
+
                     <div class="message message-{{ message.tags }}">
                         {{ message }}
                     </div>
+
                 {% endfor %}
+
             </div>
+
         {% endif %}
+
 
         {% block content %}
         {% endblock %}
+
     </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
 
     {% include "includes/footer.html" %}
 
-    <script src="{% static 'js/app.js' %}"></script>
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script
+        src="{% static 'js/app.js' %}"
+    ></script>
+
+
 </body>
+
 </html>
