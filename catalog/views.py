@@ -83,6 +83,19 @@ def catalog(request, product_type):
 
     return render(request, "catalog.html", context)
 
+def utility_catalog(request):
+    products = Product.objects.filter(
+        is_active=True,
+        product_type=Product.TYPE_UTILITY,
+    )
+
+    context = {
+        "products": products,
+        "catalog_title": "Каталог хозблоков",
+        "catalog_type": "utility",
+    }
+
+    return render(request, "catalog.html", context)
 
 def product_detail(request, slug):
     product = get_object_or_404(

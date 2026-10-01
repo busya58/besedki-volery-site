@@ -6,10 +6,12 @@ from django.urls import reverse
 class Product(models.Model):
     TYPE_GAZEBO = "gazebo"
     TYPE_AVIARY = "aviary"
+    TYPE_UTILITY = "utility"
 
     TYPE_CHOICES = [
         (TYPE_GAZEBO, "Беседка"),
         (TYPE_AVIARY, "Вольер"),
+        (TYPE_UTILITY, "Хозблок"),
     ]
 
     product_type = models.CharField(

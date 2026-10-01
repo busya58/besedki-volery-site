@@ -11,6 +11,7 @@ from .views import (
     register,
     request_create,
     success,
+    utility_catalog,
 )
 
 
@@ -21,6 +22,11 @@ urlpatterns = [
         "catalog/<str:product_type>/",
         catalog,
         name="catalog",
+    ),
+    path(
+    "hozbloki/",
+    utility_catalog,
+    name="utility_catalog",
     ),
 
     path(
